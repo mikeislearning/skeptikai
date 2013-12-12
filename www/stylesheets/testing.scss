@@ -1,0 +1,38 @@
+* {
+  -webkit-user-select: none;  /* Disable selection/copy of elements when tapping for a long time */
+  -webkit-touch-callout: none; /* Disable touch callouts */
+}
+
+input, textarea, [contenteditable] * {
+  -webkit-user-select: auto;  /* Allow selection for input elements and those with contenteditable attribute */
+}
+
+.content-padded {
+  padding: 10px;
+}
+
+.articleSummary{
+    display: block;
+    font-weight: bolder;
+    font-style: italic;
+    padding: 10px;
+
+
+}
+
+.articleSummary .articleTitle{
+  font-color:blue;
+}
+
+.articleSummary p{
+    float: left;
+}
+
+/* hides the 'continue reading' button */
+.articleSummary p a{
+    display:none;
+}
+
+.articleSummary:hover{
+    cursor: pointer;
+}

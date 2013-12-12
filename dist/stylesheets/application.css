@@ -1,0 +1,55 @@
+* {
+  -webkit-user-select: none;  /* Disable selection/copy of elements when tapping for a long time */
+  -webkit-touch-callout: none; /* Disable touch callouts */
+}
+
+input, textarea, [contenteditable] * {
+  -webkit-user-select: auto;  /* Allow selection for input elements and those with contenteditable attribute */
+}
+
+.content-padded {
+  padding: 10px;
+}
+
+.articleSummary{
+    display: block;
+
+}
+
+.articleSummary p{
+    float: left;
+    width: 65%;
+      margin: 0;
+      padding: 0;
+      display:inline;
+}
+
+.articleSummary .articleTitle{
+  font-weight: bolder;
+
+
+}
+
+
+
+/* hides the 'continue reading' button */
+.articleSummary p a{
+    display:none;
+}
+
+.articleSummary .articlePhoto{
+    float: right;
+    border: 1px solid red;
+}
+
+.articleSummary .articleDate{
+    float: right;
+}
+
+.articleSummary:hover{
+    cursor: pointer;
+}
+
+.articleSummary hr{
+    clear: both;
+}

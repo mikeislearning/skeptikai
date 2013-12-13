@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8">
+  <meta name="viewport" content="width=device-width">
+  <title>My Steroids App</title>
+  <!-- css reset -->
+  <link rel="stylesheet" href="/stylesheets/reset.css" />
+  <!-- css framework to make it look all appy -->
+  <link rel="stylesheet" href="/vendor/topcoat/css/topcoat-mobile-light.css" />
+    <!-- whatever css I actually do -->
+  <link rel="stylesheet" href="/stylesheets/application.css" />
+
+  <script src="/javascripts/onerror.js"></script>
+  <script src="/javascripts/console.log.js"></script>
+
+  <!-- cordova.js is served from localhost to ensure the correct version -->
+  <script src="http://localhost/cordova.js"></script>
+  <script src="/components/steroids-js/steroids.js"></script>
+  <script src ="/components/jquery/jquery.js"></script>
+
+  <script src="/vendor/hammerjs/jquery.hammer.min.js"></script>
+
+  <script src="/javascripts/application.js"></script>
+
+</head>
+<body>
+  <div class="content-padded">
+<!-- hope it works -->
+    <h1>Saved articles</h1>
+
+        <hr />
+        <div id="posts"></div>
+  </div>
+<script>
+
+
+//puts the localStorage stuff in here
+var savedArticles = JSON.parse(localStorage.getItem('savedArticles'));
+
+if(savedArticles){
+  $.each(savedArticles.posts, function (i, post){
+
+    var articleButton =  '<div class="articleSummary"  id = "article'+i+'"><p class="articleTitle">' + post.title + '</p>';
+
+
+    var articleDate = formatDate(post.date);
+
+
+        articleButton += '<p>' + post.excerpt + '</p>';
+
+        articleButton += '<figure class="articlePhoto"><figcaption class="articleDate">' + articleDate + '</figcaption></figure><hr></div>';
+
+
+    $(articleButton).appendTo("#posts");
+
+
+    $('#posts').hammer().on('tap', '#article'+i, function(){
+        showArticle(i, post.title);
+    });
+
+  });
+}
+else{
+  var articleButton = '<p>You have no saved articles</p>';
+  $(articleButton).appendTo("#posts");
+}
+
+
+
+</script>
+</body>
+</html>

@@ -4,9 +4,11 @@
   <meta charset="utf8">
   <meta name="viewport" content="width=device-width">
   <title>My Steroids App</title>
+  <!-- css reset -->
+  <link rel="stylesheet" href="/stylesheets/reset.css" />
   <!-- css framework to make it look all appy -->
   <link rel="stylesheet" href="/vendor/topcoat/css/topcoat-mobile-light.css" />
-  <!-- whatever css I actually do -->
+    <!-- whatever css I actually do -->
   <link rel="stylesheet" href="/stylesheets/application.css" />
 
   <script src="/javascripts/onerror.js"></script>
@@ -17,6 +19,8 @@
   <script src="/components/steroids-js/steroids.js"></script>
   <script src ="/components/jquery/jquery.js"></script>
 
+  <script src="/vendor/hammerjs/jquery.hammer.min.js"></script>
+
   <script src="/javascripts/application.js"></script>
 
 
@@ -26,11 +30,17 @@
   <div class="content-padded">
 
     <span id="articleTitle"></span>
-      <div >
+
         <hr>
         <div id="article"></div>
 
-      </div>
+
+    <footer class="articleFooter">
+      <button id="saveArticle">Save Article</button>
+    </footer>
+
+
+
   </div>
 
   <script>
@@ -41,12 +51,18 @@ $.each(articleStorage.posts, function (i, post){
 
  if(i == getUrlVars()["id"]){
 
-              var title = "<h1>" + post.title + "</h1>";
-                var content = post.content;
+  console.log(i,getUrlVars()["id"] );
 
-             $(title).appendTo("#articleTitle");
-             $(content).appendTo("#article");
-          }
+    var title = "<h1>" + post.title + "</h1>",
+    content = post.content;
+
+    $(title).appendTo("#articleTitle");
+    $(content).appendTo("#article");
+
+    $('#saveArticle').hammer().bind('tap', function(){
+        saveArticle(post);
+    });
+  }
 });
 
 

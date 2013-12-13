@@ -1,18 +1,27 @@
-steroids.view.navigationBar.show("Skeptikai");
+steroids.view.navigationBar.show("It's an app!");
 
 
 
 
 function showArticle(i, title) {
-    steroids.view.navigationBar.show(title);
+
 
     var webView = new steroids.views.WebView({
         location: "article.html?id=" + i
 
     });
-
+console.log("moo");
   steroids.layers.push(webView);
+  steroids.view.navigationBar.show("moo");
+
 //steroids.view.navigationBar.show("Skeptikai");
+
+}
+
+function saveArticle(post){
+  alert(post.title);
+
+  localStorage.setItem('savedArticles', JSON.stringify(post));
 
 }
 
@@ -36,7 +45,7 @@ function formatDate(date){
 
 
   var day = date.getDate(),
-      month = date.getMonth();
+      month = date.getMonth(),
       year = date.getFullYear();
 
   return day + '/' + month + '/' + year;

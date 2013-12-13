@@ -4,9 +4,11 @@
   <meta charset="utf8">
   <meta name="viewport" content="width=device-width">
   <title>My Steroids App</title>
+  <!-- css reset -->
+  <link rel="stylesheet" href="/stylesheets/reset.css" />
   <!-- css framework to make it look all appy -->
   <link rel="stylesheet" href="/vendor/topcoat/css/topcoat-mobile-light.css" />
-  <!-- whatever css I actually do -->
+    <!-- whatever css I actually do -->
   <link rel="stylesheet" href="/stylesheets/application.css" />
 
   <script src="/javascripts/onerror.js"></script>
@@ -24,61 +26,66 @@
 </head>
 <body>
   <div class="content-padded">
+<!-- hope it works -->
+    <h1>Mike's fucking awesome app</h1>
 
-    <h1>Skeptikai</h1>
+      <hr />
+      <div id="posts">
 
-        <hr />
-        <div id="posts"></div>
+      </div>
   </div>
-<script>
-  var wurl = "https://public-api.wordpress.com/rest/v1/sites/www.mikeislearning.com/posts/";
+ <script>
 
+var wurl = "https://public-api.wordpress.com/rest/v1/sites/www.mikeislearning.com/posts";
+
+//this should print out the number of articles there are
+//console.log(JSON.parse(localStorage.getItem('wordpress')).found);
 
 //async gets the data from the wordpress site, puts it into local storage
-//
-if(!JSON.parse(localStorage.getItem('wordpress'))){
+
+
+if(!localStorage.getItem('wordpress')){
+
   $.ajax({
       url: wurl,
-      dataType: 'jsonp',
-      success: function (data) {
+      dataType: 'jsonp'
+    }).done(function(data){
+      localStorage.setItem('wordpress', JSON.stringify(data));
+      var articleStorage = JSON.parse(localStorage.getItem('wordpress'));
+      showList(articleStorage);
+    }).fail(function() {
+      alert("Failed to load articles. Sorry :(");
+  });
 
-        localStorage.setItem('wordpress', JSON.stringify(data));
-
-  }});
+}
+else{
+  var articleStorage = JSON.parse(localStorage.getItem('wordpress'));
+  showList(articleStorage);
 }
 
 //puts the localStorage stuff in here
-var articleStorage = JSON.parse(localStorage.getItem('wordpress'));
 
 
-$.each(articleStorage.posts, function (i, post){
+function showList(articleStorage){
+  $.each(articleStorage.posts, function (i, post){
 
-  var articleButton =  '<div class="articleSummary"  id = "article'+i+'"><p class="articleTitle">' + post.title + '</p>';
+    var articleButton =  '<main class="singleArticle"><div class="articleSummary"  id = "article'+i+'"><p class="articleTitle">' + post.title + '</p>';
+      articleButton += '<p>' + post.excerpt + '</p></div>';
 
+    var articleDate = formatDate(post.date);//formats the date for article
 
-  var articleDate = formatDate(post.date);
-
-
-      articleButton += '<p>' + post.excerpt + '</p>';
-
-      articleButton += '<figure class="articlePhoto"><figcaption class="articleDate">' + articleDate + '</figcaption></figure><hr></div>';
+    articleButton += '<figure class="articlePhoto"><img src="http://placehold.it/100x100"><figcaption class="articleDate">' + articleDate + '</figcaption></figure><img class="rightArrow" src="icons/breadcrumb.png"></main><hr>';
 
 
-  $(articleButton).appendTo("#posts");
+    $(articleButton).appendTo("#posts");
 
 
-  $('#posts').hammer().on('tap', '#article'+i, function(){
-      showArticle(i, post.title);
+    $('#posts').hammer().on('tap', '#article'+i, function(){
+        showArticle(i, post.title);
+    });
+
   });
-
-});
-
-  // var moo = JSON.parse(localStorage.getItem('foo'));
-  // console.log("fuck)");
-  // console.log(moo);
-  //
-  console.log()
-
+}
 
 </script>
 </body>

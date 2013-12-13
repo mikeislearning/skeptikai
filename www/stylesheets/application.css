@@ -1,55 +1,52 @@
 * {
-  -webkit-user-select: none;  /* Disable selection/copy of elements when tapping for a long time */
-  -webkit-touch-callout: none; /* Disable touch callouts */
-}
+  -webkit-user-select: none;
+  /* Disable selection/copy of elements when tapping for a long time */
+  -webkit-touch-callout: none;
+  /* Disable touch callouts */ }
 
 input, textarea, [contenteditable] * {
-  -webkit-user-select: auto;  /* Allow selection for input elements and those with contenteditable attribute */
-}
+  -webkit-user-select: auto;
+  /* Allow selection for input elements and those with contenteditable attribute */ }
 
 .content-padded {
-  padding: 10px;
-}
+  padding: 10px; }
 
-.articleSummary{
-    display: block;
-
-}
-
-.articleSummary p{
+.singleArticle {
+  overflow: hidden; }
+  .singleArticle .articleSummary {
     float: left;
-    width: 65%;
-      margin: 0;
-      padding: 0;
-      display:inline;
-}
+    width: 60%; }
+    .singleArticle .articleSummary .articleTitle {
+      font-weight: 900;
+      font-size: 1.2em;
+      display: block; }
+    .singleArticle .articleSummary p {
+      font-size: 0.8em; }
+      .singleArticle .articleSummary p a {
+        display: none; }
+  .singleArticle .articlePhoto {
+    margin-right: 10px;
+    float: right; }
+    .singleArticle .articlePhoto img {
+      float: right;
+      width: 100px;
+      height: 100px; }
+    .singleArticle .articlePhoto figcaption {
+      text-align: center;
+      font-style: italic;
+      font-size: 0.8em; }
+  .singleArticle .rightArrow {
+    position: absolute;
+    margin-top: 15%;
+    right: 0.6em;
+    width: 0.4em;
+    height: 0.8em; }
 
-.articleSummary .articleTitle{
-  font-weight: bolder;
+hr {
+  clear: both; }
 
-
-}
-
-
-
-/* hides the 'continue reading' button */
-.articleSummary p a{
-    display:none;
-}
-
-.articleSummary .articlePhoto{
-    float: right;
-    border: 1px solid red;
-}
-
-.articleSummary .articleDate{
-    float: right;
-}
-
-.articleSummary:hover{
-    cursor: pointer;
-}
-
-.articleSummary hr{
-    clear: both;
-}
+.articleFooter {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 20px; }

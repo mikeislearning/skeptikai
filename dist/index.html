@@ -35,6 +35,10 @@
       </div>
   </div>
  <script>
+ //occasionally clear localStorage
+ localStorage.clear();
+ //
+
 
 var wurl = "https://public-api.wordpress.com/rest/v1/sites/www.mikeislearning.com/posts";
 
@@ -42,6 +46,9 @@ var wurl = "https://public-api.wordpress.com/rest/v1/sites/www.mikeislearning.co
 //console.log(JSON.parse(localStorage.getItem('wordpress')).found);
 
 //async gets the data from the wordpress site, puts it into local storage
+
+
+
 
 
 if(!localStorage.getItem('wordpress')){
@@ -65,27 +72,10 @@ else{
 
 //puts the localStorage stuff in here
 
+// setTimeout(function(){
+// document.addEventListener("visibilitychange", alert(document.visibilityState), true)},
+// 2000);
 
-function showList(articleStorage){
-  $.each(articleStorage.posts, function (i, post){
-
-    var articleButton =  '<main class="singleArticle"><div class="articleSummary"  id = "article'+i+'"><p class="articleTitle">' + post.title + '</p>';
-      articleButton += '<p>' + post.excerpt + '</p></div>';
-
-    var articleDate = formatDate(post.date);//formats the date for article
-
-    articleButton += '<figure class="articlePhoto"><img src="http://placehold.it/100x100"><figcaption class="articleDate">' + articleDate + '</figcaption></figure><img class="rightArrow" src="icons/breadcrumb.png"></main><hr>';
-
-
-    $(articleButton).appendTo("#posts");
-
-
-    $('#posts').hammer().on('tap', '#article'+i, function(){
-        showArticle(i, post.title);
-    });
-
-  });
-}
 
 </script>
 </body>

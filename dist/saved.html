@@ -36,35 +36,42 @@
 
 
 //puts the localStorage stuff in here
-var savedArticles = JSON.parse(localStorage.getItem('savedArticles'));
 
-if(savedArticles){
-  $.each(savedArticles.posts, function (i, post){
+/**
+ * The next several lines are meant to reload this page whenever a user goes to it, to shows the saved articles
+ * @return {[type]} [description]
+ */
+steroids.on("ready", function() {
+    document.addEventListener("visibilitychange", visibilityChanged);
+});
 
-    var articleButton =  '<div class="articleSummary"  id = "article'+i+'"><p class="articleTitle">' + post.title + '</p>';
+//eventsFired is set to prevent this from firing twice
+var eventsFired = 0;
+var visibilityChanged = function() {
+  eventsFired++;
+
+  if (eventsFired%2 !== 0 && !document.hidden){
+   window.location.reload();
+  }
+
+}
+
+//localStorage.addEventListener("newValue", window.location.reload());
 
 
-    var articleDate = formatDate(post.date);
 
 
-        articleButton += '<p>' + post.excerpt + '</p>';
-
-        articleButton += '<figure class="articlePhoto"><figcaption class="articleDate">' + articleDate + '</figcaption></figure><hr></div>';
-
-
-    $(articleButton).appendTo("#posts");
-
-
-    $('#posts').hammer().on('tap', '#article'+i, function(){
-        showArticle(i, post.title);
-    });
-
-  });
+if(localStorage.getItem('savedArticles')){
+  var articles = JSON.parse(localStorage.getItem('savedArticles'));
+  showList(articles);
 }
 else{
-  var articleButton = '<p>You have no saved articles</p>';
+   var articleButton = '<p>You have no saved articles</p>';
   $(articleButton).appendTo("#posts");
+
 }
+
+
 
 
 

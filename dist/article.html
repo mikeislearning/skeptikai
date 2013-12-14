@@ -19,7 +19,7 @@
   <script src="/components/steroids-js/steroids.js"></script>
   <script src ="/components/jquery/jquery.js"></script>
 
-  <script src="/vendor/hammerjs/jquery.hammer.min.js"></script>
+    <script src="/vendor/hammerjs/jquery.hammer.min.js"></script>
 
   <script src="/javascripts/application.js"></script>
 
@@ -37,34 +37,18 @@
 
     <footer class="articleFooter">
       <button id="saveArticle">Save Article</button>
-    </footer>
+  </footer>
 
 
 
   </div>
 
   <script>
-var articleStorage = JSON.parse(localStorage.getItem('wordpress'));
+
+var medium = "wordpress";
 
 
-$.each(articleStorage.posts, function (i, post){
-
- if(i == getUrlVars()["id"]){
-
-  console.log(i,getUrlVars()["id"] );
-
-    var title = "<h1>" + post.title + "</h1>",
-    content = post.content;
-
-    $(title).appendTo("#articleTitle");
-    $(content).appendTo("#article");
-
-    $('#saveArticle').hammer().bind('tap', function(){
-        saveArticle(post);
-    });
-  }
-});
-
+loadArticle(medium);
 
 
 

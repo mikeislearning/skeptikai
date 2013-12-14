@@ -27,7 +27,7 @@
 <body>
   <div class="content-padded">
 <!-- hope it works -->
-    <h1>Mike's fucking awesome app</h1>
+    <h1>Latest Articles</h1>
 
       <hr />
       <div id="posts">
@@ -36,21 +36,12 @@
   </div>
  <script>
  //occasionally clear localStorage
- localStorage.clear();
- //
+ //localStorage.clear();
 
-
+//async gets the data from the wordpress site, puts it into local storage
 var wurl = "https://public-api.wordpress.com/rest/v1/sites/www.mikeislearning.com/posts";
 
 //this should print out the number of articles there are
-//console.log(JSON.parse(localStorage.getItem('wordpress')).found);
-
-//async gets the data from the wordpress site, puts it into local storage
-
-
-
-
-
 if(!localStorage.getItem('wordpress')){
 
   $.ajax({
@@ -70,11 +61,6 @@ else{
   showList(articleStorage);
 }
 
-//puts the localStorage stuff in here
-
-// setTimeout(function(){
-// document.addEventListener("visibilitychange", alert(document.visibilityState), true)},
-// 2000);
 
 
 </script>

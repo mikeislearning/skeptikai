@@ -1,4 +1,4 @@
-steroids.view.navigationBar.show("It's an app!");
+steroids.view.navigationBar.show();
 
 
 
@@ -14,12 +14,23 @@ function showArticle(i, title) {
     });
 
   steroids.layers.push(webView);
-  steroids.view.navigationBar.show("moo");
+  //steroids.view.navigationBar.show("moo");
   //steroids.view.navigationBar.show("Skeptikai");
 }
 
 function loadArticle(storageType){
-  var articleStorage = JSON.parse(localStorage.getItem(storageType));
+  var articleStorage = JSON.parse(localStorage.getItem(storageType)),
+  button = "Save";
+
+
+
+  //determines if localStorage is wordpress or savedArticle
+  if(!articleStorage.found)
+  {
+    button = "Delete";
+
+  }
+
 
 
   $.each(articleStorage.posts, function (i, post){
@@ -31,21 +42,47 @@ function loadArticle(storageType){
 
       $(title).appendTo("#articleTitle");
       $(content).appendTo("#article");
+      $(button).appendTo('#articleAction');
 
-      $('#saveArticle').hammer().on('tap', function(){
-          saveArticle(post);
-      });
+      //either creates a save or delete button
+      if(button == "Save"){
+        $('#articleAction').hammer().on('tap', function(){
+            saveArticle(post);
+        });
+      }
+      else{
+
+        $('#articleAction').hammer().on('tap', function(){
+            deleteSavedArticle(post);
+        });
+
+      }
+
+
     }
   });
 }
 
+function deleteSavedArticle(post){
+  alert("deleted");
+  var savedArticles = JSON.parse(localStorage.getItem('savedArticles'));
+  $.each(savedArticles.posts, function(i, others){
+
+      if(post.ID == others.ID){
+        var key = post.ID;
+        localStorage.removeItem(key);
+      }
+    });
+}
+
 
 function saveArticle(post){
-  alert("saved");
+
   var exists = false;
 
   var savedArticles = JSON.parse(localStorage.getItem('savedArticles')) || {};
 
+  //if statement used for first save
   if(savedArticles.posts){
     $.each(savedArticles.posts, function(i, others){
 
@@ -59,6 +96,7 @@ function saveArticle(post){
     savedArticles.posts[num] = post;
     savedArticles.count = num + 1;
     localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
+      alert("saved");
   }
   else{
     (alert("You've already saved this article"));
@@ -78,7 +116,7 @@ function showList(articleStorage){
 
   $.each(articleStorage.posts, function (i, post){
 
-    var articleButton =  '<main class="singleArticle"><div class="articleSummary"  id = "article'+ post.ID +'"><p class="articleTitle">' + post.title + '</p>';
+    var articleButton =  '<main class="singleArticle" id = "article'+ post.ID +'"><div class="articleSummary"><p class="articleTitle">' + post.title + '</p>';
       articleButton += '<p>' + post.excerpt + '</p></div>';
 
     var articleDate = formatDate(post.date);//formats the date for article
@@ -96,7 +134,10 @@ function showList(articleStorage){
 
 }
 
-
+/**
+ * get the url variables
+ * taken from http://jquery-howto.blogspot.ca/2009/09/get-url-parameters-values-with-jquery.html
+ */
 function getUrlVars(){
     var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -109,6 +150,11 @@ function getUrlVars(){
     return vars;
 }
 
+/**
+ * formats the date, returning the day, month, and year
+ * @param  {[string]} date [description]
+ * @return {[type]}      [description]
+ */
 function formatDate(date){
 
   var date = new Date(date);

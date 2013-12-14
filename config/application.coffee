@@ -21,8 +21,13 @@ steroids.config.tabBar.tabs = [
   },
   {
     title: "Twitter"
-    icon: "icons/telescope@2x.png"
-    location: "http://localhost/twitter.html"
+    icon: "icons/twitter@2x.png"
+    location: "https://twitter.com/skeptikai"
+  },
+  {
+    title: "Videos"
+    icon: "icons/youtube@2x.png"
+    location: "http://www.youtube.com/user/skeptikai"
   }
 ]
 
@@ -40,13 +45,13 @@ steroids.config.navigationBar.buttonTintColor = "#ffffff"
 steroids.config.navigationBar.buttonTitleColor = "#ffffff"
 
 # steroids.config.navigationBar.landscape.backgroundImage = ""
-# steroids.config.navigationBar.portrait.backgroundImage = ""
+steroids.config.navigationBar.portrait.backgroundImage = "images/skeptikai-logo4.png"
 
 # -- Android Loading Screen
-steroids.config.loadingScreen.tintColor = "#262626"
+steroids.config.loadingScreen.tintColor = "#8c2f38"
 
 # -- iOS Status Bar --
-steroids.config.statusBar.enabled = true
+steroids.config.statusBar.enabled = false
 steroids.config.statusBar.style = "default"
 
 # -- File Watcher --

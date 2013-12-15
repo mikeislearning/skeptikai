@@ -100,15 +100,26 @@ function loadArticle(storageType){
  */
 function deleteSavedArticle(post){
 
-  var savedArticles = JSON.parse(localStorage.getItem('savedArticles'));
-  localStorage.removeItem('savedArticles');
-  $.each(savedArticles.posts, function(i, others){
-      if(post.ID !== others.ID){
-        //var key = JSON.parse(localStorage.getItem('savedArticles')).posts;
-        saveArticle(others, false);
+  navigator.notification.confirm(
+    "Are you sure you want to delete?",
+    function(buttonIndex){
+      if(buttonIndex == 1){
+        var savedArticles = JSON.parse(localStorage.getItem('savedArticles'));
+        localStorage.removeItem('savedArticles');
+        $.each(savedArticles.posts, function(i, others){
+          if(post.ID !== others.ID){
+
+            saveArticle(others, false);
+          }
+        });
       }
-    });
-  alert("deleted");
+
+    },
+    "Skeptikai",
+    ['Yes','No'] )
+
+
+
 }
 
 //checks if article is already saved
@@ -145,11 +156,21 @@ function saveArticle(post, alertMe){
     savedArticles.count = num + 1;
     localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
     if(alertMe){
-      alert("saved");
+      navigator.notification.alert(
+          'Article saved',  // message
+          function(){},         // callback
+          'Skeptikai',            // title
+          'OK'                  // buttonName
+      );
     }
   }
   else{
-    (alert("You've already saved this article"));
+    navigator.notification.alert(
+          'You already saved this article',  // message
+          function(){},         // callback
+          'Skeptikai',            // title
+          'OK'                  // buttonName
+      );
   }
 
   // console.log(savedArticles.found);

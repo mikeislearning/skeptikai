@@ -11,42 +11,55 @@ input, textarea, [contenteditable] * {
 .content-padded {
   padding: 10px; }
 
-.singleArticle {
-  overflow: hidden; }
-  .singleArticle .articleSummary {
-    float: left;
-    width: 60%; }
-    .singleArticle .articleSummary .articleTitle {
-      font-weight: 900;
-      font-size: 1.2em;
-      display: block; }
-    .singleArticle .articleSummary p {
-      font-size: 0.8em; }
-      .singleArticle .articleSummary p a {
-        display: none; }
-  .singleArticle .articlePhoto {
-    margin-right: 10px;
-    float: right; }
-    .singleArticle .articlePhoto img {
-      float: right;
-      width: 100px;
-      height: 100px; }
-    .singleArticle .articlePhoto figcaption {
-      text-align: center;
-      font-style: italic;
-      font-size: 0.8em; }
-  .singleArticle .rightArrow {
-    position: absolute;
-    margin-top: 15%;
-    right: 0.6em;
-    width: 0.4em;
-    height: 0.8em; }
+.singleArticle .articleSummary {
+  float: left;
+  width: 60%; }
+  .singleArticle .articleSummary .articleTitle {
+    font-weight: 900;
+    font-size: 1.2em;
+    display: block; }
+  .singleArticle .articleSummary p {
+    font-size: 0.8em; }
+    .singleArticle .articleSummary p a {
+      display: none; }
+.singleArticle .articlePhoto {
+  margin-right: 10px;
+  float: right; }
+  .singleArticle .articlePhoto img {
+    float: right;
+    width: 100px;
+    height: 100px; }
+  .singleArticle .articlePhoto figcaption {
+    text-align: center;
+    font-style: italic;
+    font-size: 0.8em; }
+.singleArticle .rightArrow {
+  position: absolute;
+  margin-top: 15%;
+  right: 0.6em;
+  width: 0.4em;
+  height: 0.8em; }
 
 hr {
   clear: both; }
 
-.articleFooter {
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  height: 20px; }
+.articleHeader {
+  height: 30px; }
+  .articleHeader #articleTitle {
+    font-size: 1em;
+    font-weight: 900;
+    float: left; }
+  .articleHeader #articleAction {
+    float: right;
+    color: white;
+    border-radius: 4px;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.36);
+    font-weight: 500;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.36);
+    background-color: #FF0000; }
+    .articleHeader #articleAction:active {
+      background-color: #560000;
+      box-shadow: inset 0 1px rgba(0, 0, 0, 0.12); }
+
+#article {
+  padding-bottom: 50px; }

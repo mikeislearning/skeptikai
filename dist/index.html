@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf8">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
   <title>My Steroids App</title>
   <!-- css reset -->
   <link rel="stylesheet" href="/stylesheets/reset.css" />
@@ -38,8 +38,12 @@
  //occasionally clear localStorage
  //localStorage.clear();
 
+
 //async gets the data from the wordpress site, puts it into local storage
 var wurl = "https://public-api.wordpress.com/rest/v1/sites/www.mikeislearning.com/posts";
+
+//TODO - COMPARE .COUNT OF REST URL VS .COUNT OF PARSED LOCALSTORAGE TO CHECK FOR NEW POSTS, BUT ONLY IF THE USER DOES A TOP DRAGGABLE LOAD USE ISCROLL TO LOAD NEW SHIT
+//TODO - STORE ARTICLES AS INDIVIDUAL LOCALSTORAGE ITEMS, OR IN SQLLITE DATABASE
 
 //this should print out the number of articles there are
 if(!localStorage.getItem('wordpress')){

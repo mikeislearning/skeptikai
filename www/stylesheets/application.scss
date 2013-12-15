@@ -14,7 +14,7 @@ input, textarea, [contenteditable] * {
 
 .singleArticle{
   // height: 8.2em;
-  overflow: hidden;
+  //overflow: hidden;
 
   //section 1 - article summary
   .articleSummary{
@@ -68,17 +68,37 @@ input, textarea, [contenteditable] * {
 
 }
 
-  hr{
-    clear: both;
-  }
-
-.articleFooter{
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  height: 20px;
+hr{
+  clear: both;
 }
 
+
+.articleHeader{
+height: 30px;
+  #articleTitle{
+    font-size: 1em;
+    font-weight: 900;
+    float: left;
+
+  }
+  #articleAction{
+    float: right;
+    color: white;
+    border-radius: 4px;
+    box-shadow: inset 0 1px rgba(255,255,255,0.36);
+    font-weight: 500;
+    text-shadow: 0 -1px rgba(0,0,0,0.36);
+    background-color: #FF0000;
+    &:active {
+      background-color: #560000;
+      box-shadow: inset 0 1px rgba(0,0,0,0.12);
+    }
+  }
+}
+
+#article{
+  padding-bottom: 50px;
+}
 
 
 

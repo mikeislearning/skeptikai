@@ -1,5 +1,25 @@
 steroids.view.navigationBar.show();
 
+var infoView = new steroids.views.WebView("about.html");
+
+
+var imageButton = new steroids.buttons.NavigationBarButton();
+
+//var flip = new steroids.Animation({
+//  transition: "flipHorizontalFromLeft"
+//});
+
+imageButton.imagePath = "/icons/info_icon.png";
+imageButton.onTap = function(){steroids.modal.show({
+  view: infoView
+  }
+)};
+
+steroids.view.navigationBar.setButtons({
+  right: [imageButton]
+});
+
+
 
 
 /**
@@ -8,29 +28,33 @@ steroids.view.navigationBar.show();
  * @param  {[type]} title [description]
  * @return {[type]}       [description]
  */
-function showArticle(i, title) {
-    var webView = new steroids.views.WebView({
+
+//steroids.tabBar.show();
+
+function showArticleView(i, title) {
+    var articleView = new steroids.views.WebView({
         location: "article.html?id=" + i
     });
 
-  steroids.layers.push(webView);
-  //steroids.view.navigationBar.show("moo");
-  //steroids.view.navigationBar.show("Skeptikai");
+  steroids.tabBar.hide();
+
+  steroids.layers.push({
+    view: articleView
+    //,animation: fade
+  });
 }
 
+
+/**
+ * Loads an individual atricle
+ * @param  {[localStorage]} storageType [determines whether the storage is saved article]
+ * @return {[type]}             [description]
+ */
 function loadArticle(storageType){
   var articleStorage = JSON.parse(localStorage.getItem(storageType)),
-  button = "Save";
-
-
+  button = "♥";
 
   //determines if localStorage is wordpress or savedArticle
-  if(!articleStorage.found)
-  {
-    button = "Delete";
-
-  }
-
 
 
   $.each(articleStorage.posts, function (i, post){
@@ -40,14 +64,20 @@ function loadArticle(storageType){
       var title = "<h1>" + post.title + "</h1>",
       content = post.content;
 
+      if(isArticleSaved(post))
+        {
+          button = "x";
+
+        }
+
       $(title).appendTo("#articleTitle");
       $(content).appendTo("#article");
-      $(button).appendTo('#articleAction');
+      $('#articleAction').text(button);;
 
       //either creates a save or delete button
-      if(button == "Save"){
+      if(button == "♥"){
         $('#articleAction').hammer().on('tap', function(){
-            saveArticle(post);
+            saveArticle(post, true);
         });
       }
       else{
@@ -63,24 +93,28 @@ function loadArticle(storageType){
   });
 }
 
+/**
+ * This function deletes the selected value
+ * It does so by removing the entire savedArticles item,
+ * and then loops through, adding every item except the item requested for deletion
+ */
 function deleteSavedArticle(post){
-  alert("deleted");
-  var savedArticles = JSON.parse(localStorage.getItem('savedArticles'));
-  $.each(savedArticles.posts, function(i, others){
 
-      if(post.ID == others.ID){
-        var key = post.ID;
-        localStorage.removeItem(key);
+  var savedArticles = JSON.parse(localStorage.getItem('savedArticles'));
+  localStorage.removeItem('savedArticles');
+  $.each(savedArticles.posts, function(i, others){
+      if(post.ID !== others.ID){
+        //var key = JSON.parse(localStorage.getItem('savedArticles')).posts;
+        saveArticle(others, false);
       }
     });
+  alert("deleted");
 }
 
-
-function saveArticle(post){
-
-  var exists = false;
-
-  var savedArticles = JSON.parse(localStorage.getItem('savedArticles')) || {};
+//checks if article is already saved
+function isArticleSaved(post){
+  var exists = false,
+      savedArticles = JSON.parse(localStorage.getItem('savedArticles')) || {};
 
   //if statement used for first save
   if(savedArticles.posts){
@@ -89,14 +123,30 @@ function saveArticle(post){
       if(post.ID == others.ID) exists = true;
     });
   }
-  else savedArticles.posts = [];
+  return exists;
+}
+
+//saves the article in storage
+function saveArticle(post, alertMe){
+
+  //var exists = false;
+
+  var savedArticles = JSON.parse(localStorage.getItem('savedArticles')) || {};
+
+  //if statement used for first save
+  if(!savedArticles.posts){
+    savedArticles.posts = [];
+  }
+
 
   var num = savedArticles.posts.length || 0;
-  if(!exists){
+  if(!isArticleSaved(post)){
     savedArticles.posts[num] = post;
     savedArticles.count = num + 1;
     localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
+    if(alertMe){
       alert("saved");
+    }
   }
   else{
     (alert("You've already saved this article"));
@@ -127,8 +177,8 @@ function showList(articleStorage){
     $(articleButton).appendTo("#posts");
 
 
-    $('#posts').hammer().on('tap', '#article'+post.ID, function(){
-        showArticle(post.ID, post.title);
+    $('#posts').hammer().on('tap swipeleft dragleft', '#article'+post.ID, function(){
+        showArticleView(post.ID, post.title);
     });
   });
 
@@ -158,8 +208,6 @@ function getUrlVars(){
 function formatDate(date){
 
   var date = new Date(date);
-
-
   var day = date.getDate(),
       month = date.getMonth();
       year = date.getFullYear();

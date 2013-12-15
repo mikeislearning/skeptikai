@@ -51,7 +51,7 @@ steroids.config.navigationBar.portrait.backgroundImage = "images/skeptikai-logo4
 steroids.config.loadingScreen.tintColor = "#8c2f38"
 
 # -- iOS Status Bar --
-steroids.config.statusBar.enabled = false
+steroids.config.statusBar.enabled = true
 steroids.config.statusBar.style = "default"
 
 # -- File Watcher --

@@ -24,13 +24,8 @@ steroids.view.navigationBar.setButtons({
 
 /**
  * Loads the proper article based on the ID
- * @param  {[type]} i     [description]
- * @param  {[type]} title [description]
- * @return {[type]}       [description]
+ *
  */
-
-//steroids.tabBar.show();
-
 function showArticleView(i, title) {
     var articleView = new steroids.views.WebView({
         location: "article.html?id=" + i
@@ -101,25 +96,22 @@ function loadArticle(storageType){
 function deleteSavedArticle(post){
 
   navigator.notification.confirm(
-    "Are you sure you want to delete?",
+    "Remove from saved articles?",
     function(buttonIndex){
       if(buttonIndex == 1){
         var savedArticles = JSON.parse(localStorage.getItem('savedArticles'));
         localStorage.removeItem('savedArticles');
         $.each(savedArticles.posts, function(i, others){
           if(post.ID !== others.ID){
-            //var key = JSON.parse(localStorage.getItem('savedArticles')).posts;
+
             saveArticle(others, false);
           }
         });
       }
 
     },
-    " ",
+    "Skeptikai",
     ['Yes','No'] )
-
-
-
 }
 
 //checks if article is already saved
@@ -139,8 +131,6 @@ function isArticleSaved(post){
 
 //saves the article in storage
 function saveArticle(post, alertMe){
-
-  //var exists = false;
 
   var savedArticles = JSON.parse(localStorage.getItem('savedArticles')) || {};
 
